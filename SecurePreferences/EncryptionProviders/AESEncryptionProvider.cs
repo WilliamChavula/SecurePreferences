@@ -2,9 +2,9 @@ using System.Security.Cryptography;
 using System.Text;
 using SecurePreferences.interfaces;
 
-namespace SecurePreferences
+namespace SecurePreferences.EncryptionProviders
 {
-    public class AesEncryptionProvider : IEncryptionProvider
+    class AESEncryptionProvider : IEncryptionProvider
     {
         /// <summary>
         /// Decrypts a Base64 encoded string that was encrypted with AES.
@@ -107,44 +107,6 @@ namespace SecurePreferences
                 );
 
             aes.Key = byteKey;
-            aes.GenerateIV();
-
-            using var encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
-            byte[] plainBytes = Encoding.UTF8.GetBytes(plainText);
-            byte[] cipherBytes = encryptor.TransformFinalBlock(plainBytes, 0, plainBytes.Length);
-
-            // Combine IV and ciphertext
-            byte[] combinedBytes = new byte[aes.IV.Length + cipherBytes.Length];
-            Array.Copy(aes.IV, 0, combinedBytes, 0, aes.IV.Length);
-            Array.Copy(cipherBytes, 0, combinedBytes, aes.IV.Length, cipherBytes.Length);
-
-            return Convert.ToBase64String(combinedBytes);
-        }
-
-        /// <summary>
-        /// Encrypts the provided plaintext string using AES encryption with the given key.
-        /// The method generates a new IV for each encryption operation, which is combined
-        /// with the ciphertext for later decryption.
-        /// </summary>
-        /// <param name="plainText">The string to be encrypted.</param>
-        /// <param name="key">The encryption key as a byte[].</param>
-        /// <returns>A Base64 encoded string.</returns>
-        /// <exception cref="ArgumentException">Thrown if the plaintext or key is null or empty, or if the key length is invalid.</exception>
-        public string Encrypt(string plainText, byte[] key)
-        {
-            if (string.IsNullOrEmpty(plainText))
-                throw new ArgumentException(
-                    "Plaintext cannot be null or empty.",
-                    nameof(plainText)
-                );
-
-            if (key == null || (key.Length != 16 && key.Length != 24 && key.Length != 32))
-                throw new ArgumentException("Key must be 16, 24, or 32 bytes long.", nameof(key));
-
-            using var aes = Aes.Create();
-            aes.Key = key;
-
-            // Generate a new IV for each encryption
             aes.GenerateIV();
 
             using var encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
