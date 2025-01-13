@@ -12,8 +12,9 @@ namespace SecurePreferences
 
         public SecurePreferences(string key, IEncryptionProvider provider)
         {
-            if (string.IsNullOrEmpty(key) || key.Length < 16)
-                throw new ArgumentException("Encryption key must be at least 16 characters long.");
+            if (string.IsNullOrEmpty(key))
+                throw new ArgumentException("Encryption key cannot be null or empty", nameof(key));
+
             encryptionKey = key;
             encryptionProvider = provider;
         }
