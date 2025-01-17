@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecurePreferences", "SecurePreferences\SecurePreferences.csproj", "{3144A8AE-52F2-467E-8D77-AC2F7145507A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecurePreferences.Test", "SecurePreferences.Test\SecurePreferences.Test.csproj", "{710A7C75-4806-4D81-B19E-BC74937CE90E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{3144A8AE-52F2-467E-8D77-AC2F7145507A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3144A8AE-52F2-467E-8D77-AC2F7145507A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3144A8AE-52F2-467E-8D77-AC2F7145507A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{710A7C75-4806-4D81-B19E-BC74937CE90E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{710A7C75-4806-4D81-B19E-BC74937CE90E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{710A7C75-4806-4D81-B19E-BC74937CE90E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{710A7C75-4806-4D81-B19E-BC74937CE90E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
