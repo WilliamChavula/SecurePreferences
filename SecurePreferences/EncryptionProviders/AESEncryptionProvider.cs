@@ -14,7 +14,6 @@ namespace SecurePreferences.EncryptionProviders
         /// <returns>The decrypted string.</returns>
         /// <exception cref="ArgumentException">Thrown if the ciphertext or key is null or empty, or if the ciphertext format is incorrect.</exception>
         /// <exception cref="CryptographicException">Thrown if decryption fails due to incorrect key or corrupted data.</exception>
-
         public string Decrypt(string cipherText, string key)
         {
             if (string.IsNullOrEmpty(cipherText))
@@ -126,7 +125,7 @@ namespace SecurePreferences.EncryptionProviders
         /// </summary>
         /// <param name="key">The key as a string to be converted to bytes.</param>
         /// <returns>A byte array representing the key, truncated or extended to match AES key sizes (16, 24, or 32 bytes).</returns>
-        /// <exception cref="ArgumentException">Thrown if the key is null or empty.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if the key is not in the expected range.</exception>
         private static byte[] GetKeyBytes(string key)
         {
             byte[] keyBytes = Encoding.UTF8.GetBytes(key);
