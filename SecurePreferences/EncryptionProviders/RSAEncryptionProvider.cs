@@ -63,7 +63,7 @@ namespace SecurePreferences.EncryptionProviders
                 byte[] encryptedBytes = Convert.FromBase64String(cipherText);
 
                 // Decrypt the data
-                byte[] decryptedData = rsa.Decrypt(encryptedBytes, RSAEncryptionPadding.Pkcs1);
+                byte[] decryptedData = rsa.Decrypt(encryptedBytes, RSAEncryptionPadding.OaepSHA256);
 
                 return Encoding.UTF8.GetString(decryptedData);
             }
