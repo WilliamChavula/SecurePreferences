@@ -32,7 +32,7 @@ namespace SecurePreferences.Test.EncryptionProviders
                 var stringToEncrypt = "stringToEncrypt";
 
                 // Then
-                Assert.Throws<ArgumentOutOfRangeException>(() => aes.Encrypt(stringToEncrypt, key));
+                Assert.Throws<ArgumentException>(() => aes.Encrypt(stringToEncrypt, key));
             }
 
             [Theory]
