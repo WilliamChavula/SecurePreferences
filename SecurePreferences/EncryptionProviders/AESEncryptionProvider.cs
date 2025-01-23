@@ -125,18 +125,28 @@ namespace SecurePreferences.EncryptionProviders
         /// </summary>
         /// <param name="key">The key as a string to be converted to bytes.</param>
         /// <returns>A byte array representing the key, truncated or extended to match AES key sizes (16, 24, or 32 bytes).</returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown if the key is not in the expected range.</exception>
+        /// <exception cref="ArgumentException">Thrown if the key is not in the expected range.</exception>
         private static byte[] GetKeyBytes(string key)
         {
-            byte[] keyBytes = Encoding.UTF8.GetBytes(key);
+            try
+            {
+                byte[] keyBytes = Encoding.UTF8.GetBytes(key);
 
-            // Determine the appropriate key size
-            if (keyBytes.Length >= 32)
-                return keyBytes[..32]; // Use first 32 bytes for 256-bit key
-            else if (keyBytes.Length >= 24)
-                return keyBytes[..24]; // Use first 24 bytes for 192-bit key
-            else
-                return keyBytes[..16]; // Use first 16 bytes for 128-bit key or fewer
+                // Determine the appropriate key size
+                if (keyBytes.Length >= 32)
+                    return keyBytes[..32]; // Use first 32 bytes for 256-bit key
+                else if (keyBytes.Length >= 24)
+                    return keyBytes[..24]; // Use first 24 bytes for 192-bit key
+                else
+                    return keyBytes[..16]; // Use first 16 bytes for 128-bit key or fewer
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                throw new ArgumentException(
+                    "Key length is out of range. Provide a key with a length of 16, 24, or 32 bytes. That is, at least 16 characters long.",
+                    ex
+                );
+            }
         }
     }
 }
