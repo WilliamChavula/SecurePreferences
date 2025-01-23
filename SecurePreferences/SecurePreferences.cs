@@ -8,7 +8,7 @@ namespace SecurePreferences
         private readonly IEncryptionProvider encryptionProvider;
         private readonly string encryptionKey;
 
-        private static IPreferences Preferences => MicrosoftPreferences.Default;
+        private IPreferences Preferences { get; }
 
         /// <summary>
         /// Initializes a new instance of the SecurePreferences class with the specified encryption key and <see cref="IEncryptionProvider" />.
@@ -16,10 +16,19 @@ namespace SecurePreferences
         /// <param name="key">The encryption key to use. Cannot be null or empty.</param>
         /// <param name="provider">The encryption provider to manage encryption operations.</param>
         /// <exception cref="ArgumentException">Thrown when the key is null or empty.</exception>
-        public SecurePreferences(string key, IEncryptionProvider provider)
+        public SecurePreferences(
+            string key,
+            IEncryptionProvider provider,
+            IPreferences? preferences = null
+        )
         {
             if (string.IsNullOrEmpty(key))
                 throw new ArgumentException("Encryption key cannot be null or empty", nameof(key));
+
+            if (preferences is null)
+                Preferences = MicrosoftPreferences.Default;
+            else
+                Preferences = preferences;
 
             encryptionKey = key;
             encryptionProvider = provider;
@@ -65,7 +74,7 @@ namespace SecurePreferences
         /// <remarks>
         /// This operation is immediate and affects all instances sharing the same preference storage.
         /// </remarks>
-        public static void Remove(string key) => Preferences.Remove(key);
+        public void Remove(string key) => Preferences.Remove(key);
 
         /// <summary>
         /// Clears all preferences from storage.
@@ -73,6 +82,6 @@ namespace SecurePreferences
         /// <remarks>
         /// This operation removes all stored preferences and should be used carefully as it affects all data stored through this class.
         /// </remarks>
-        public static void Clear() => Preferences.Clear();
+        public void Clear() => Preferences.Clear();
     }
 }
