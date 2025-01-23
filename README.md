@@ -25,36 +25,54 @@ dotnet add package SecurePreferences
 
 # Usage
 
-## 1. Setting Up SecurePreferences
+## 1. Obtaining an encryption algorithm instancea
+You must pass an instance of the encryption algorithm you want to use. Either AES or RSA.
+An algorthim instance can be obtained by using the Encryption static class.
 
+```csharp
+var aesAlgorithm = Encryption.AES;
+
+// Alternatively
+// var rsaAlgorithm = Encryption.RSA;
+```
+
+NB: If you choose to use RSA algorithm. You can get your public and private keys by calling these methods:
+
+```csharp
+var publicKey = rsaInstance.ExportPublicKey();
+var privateKey = rsaInstance.ExportPrivateKey();
+```
+---
+
+## 2. Setting Up SecurePreferences
 ```csharp
 using SecurePreferencesLibrary;
 
 // Initialize SecurePreferences with AES encryption
-var securePrefs = new SecurePreferences(EncryptionAlgorithm.AES, "your-encryption-key");
+var securePrefs = new SecurePreferences(Encryption.AES);
 
 // Alternatively, use RSA encryption
-// var securePrefs = new SecurePreferences(EncryptionAlgorithm.RSA, publicKey, privateKey);
+// var securePrefs = new SecurePreferences(Encryption.RSA);
 ```
 
 ## 2. Saving Preferences
 
 ```csharp
 // Save a preference with a key and value
-securePrefs.Save("Username", "SecureUser123");
+securePrefs.Save("encryptionKey", "Username", "SecureUser123");
 
 // Save more sensitive data
-securePrefs.Save("ApiToken", "very-secret-token");
+securePrefs.Save("encryptionKey", "ApiToken", "very-secret-token");
 ```
 
 ## 3. Retrieving Preferences
 ```csharp
 // Retrieve the saved value
-string username = securePrefs.Get("Username");
+string username = securePrefs.Get("decryptionKey", "Username");
 Console.WriteLine($"Retrieved Username: {username}");
 
 // Retrieve sensitive data
-string apiToken = securePrefs.Get("ApiToken");
+string apiToken = securePrefs.Get("decryptionKey", "ApiToken");
 Console.WriteLine($"Retrieved ApiToken: {apiToken}");
 ```
 
@@ -62,7 +80,7 @@ Console.WriteLine($"Retrieved ApiToken: {apiToken}");
 
 ```csharp
 // Remove a specific key-value pair
-securePrefs.Delete("Username");
+securePrefs.Remove("Username");
 
 // Clear all stored preferences
 securePrefs.Clear();
@@ -89,15 +107,15 @@ class Program
         var securePrefs = new SecurePreferences(EncryptionAlgorithm.AES, "your-encryption-key");
 
         // Save preferences
-        securePrefs.Save("Email", "user@example.com");
-        securePrefs.Save("Password", "secure-password");
+        securePrefs.Save("encryptionKey", "Email", "user@example.com");
+        securePrefs.Save("encryptionKey", "Password", "secure-password");
 
         // Retrieve preferences
-        string email = securePrefs.Get("Email");
+        string email = securePrefs.Get("decryptionKey", "Email");
         Console.WriteLine($"Email: {email}");
 
         // Delete a preference
-        securePrefs.Delete("Email");
+        securePrefs.Remove("Email");
 
         // Clear all preferences
         securePrefs.Clear();
@@ -116,17 +134,12 @@ Implement your own encryption logic by extending the `IEncryptionProvider` inter
 ```csharp
 public class CustomEncryption : IEncryptionProvider
 {
-    public byte[] Encrypt(string value, string key)
+    public string Encrypt(string value, string encryptionKey)
     {
         // Custom encryption logic
     }
 
-    public byte[] Encrypt(string value, byte[] key)
-    {
-        // Custom encryption logic
-    }
-
-    public byte[] Decrypt(string encryptedData, string key)
+    public string Decrypt(string encryptedData, string decryptionKey)
     {
         // Custom decryption logic
     }
