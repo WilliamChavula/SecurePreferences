@@ -59,20 +59,20 @@ var securePrefs = new SecurePreferences(Encryption.AES);
 
 ```csharp
 // Save a preference with a key and value
-securePrefs.Save("encryptionKey", "Username", "SecureUser123");
+securePrefs.Save("your-encryption-key", "Username", "SecureUser123");
 
 // Save more sensitive data
-securePrefs.Save("encryptionKey", "ApiToken", "very-secret-token");
+securePrefs.Save("your-encryption-key", "ApiToken", "very-secret-token");
 ```
 
 ## 3. Retrieving Preferences
 ```csharp
 // Retrieve the saved value
-string username = securePrefs.Get("decryptionKey", "Username");
+string username = securePrefs.Get("your-decryption-key", "Username");
 Console.WriteLine($"Retrieved Username: {username}");
 
 // Retrieve sensitive data
-string apiToken = securePrefs.Get("decryptionKey", "ApiToken");
+string apiToken = securePrefs.Get("your-decryption-key", "ApiToken");
 Console.WriteLine($"Retrieved ApiToken: {apiToken}");
 ```
 
@@ -104,14 +104,14 @@ class Program
     static void Main()
     {
         // Initialize SecurePreferences with AES encryption
-        var securePrefs = new SecurePreferences(EncryptionAlgorithm.AES, "your-encryption-key");
+        var securePrefs = new SecurePreferences(EncryptionAlgorithm.AES);
 
         // Save preferences
-        securePrefs.Save("encryptionKey", "Email", "user@example.com");
-        securePrefs.Save("encryptionKey", "Password", "secure-password");
+        securePrefs.Save("your-encryption-key", "Email", "user@example.com");
+        securePrefs.Save("your-encryption-key", "Password", "secure-password");
 
         // Retrieve preferences
-        string email = securePrefs.Get("decryptionKey", "Email");
+        string email = securePrefs.Get("your-decryption-key", "Email");
         Console.WriteLine($"Email: {email}");
 
         // Delete a preference
