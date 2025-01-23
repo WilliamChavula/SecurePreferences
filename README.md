@@ -39,8 +39,8 @@ var aesAlgorithm = Encryption.AES;
 NB: If you choose to use RSA algorithm. You can get your public and private keys by calling these methods:
 
 ```csharp
-var publicKey = rsaInstance.ExportPublicKey();
-var privateKey = rsaInstance.ExportPrivateKey();
+var publicKey = rsaAlgorithm.ExportPublicKey();
+var privateKey = rsaAlgorithm.ExportPrivateKey();
 ```
 ---
 
