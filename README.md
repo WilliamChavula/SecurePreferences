@@ -32,6 +32,14 @@ An algorthim instance can be obtained by using the Encryption static class.
 ```csharp
 var aesAlgorithm = Encryption.AES;
 
+NB: For your convinience, if you choose to use AES algorithm I added a static helper class to generate AES keys. You can make use of a helper static class to generate an AES encyption key by calling this method:
+
+```csharp
+var aesKey = AESKeyGenerator.ExportAesKey([int keySizeInBits = 256]);
+```
+
+This method takes an option `keySiizeInBits` - the size of the `AES` key. Note that you can pass your own key size, but it must be either 128, 192, or the default 256 else the method will throw an `ArgumentException`.
+
 // Alternatively
 // var rsaAlgorithm = Encryption.RSA;
 ```
