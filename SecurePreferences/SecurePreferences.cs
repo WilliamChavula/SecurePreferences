@@ -3,7 +3,7 @@ using MicrosoftPreferences = Microsoft.Maui.Storage.Preferences;
 
 namespace SecurePreferences
 {
-    public class SecurePreferences
+    public class SecureStorage
     {
         private readonly IEncryptionProvider encryptionProvider;
 
@@ -18,7 +18,7 @@ namespace SecurePreferences
         /// If no <see cref="IPreferences" /> instance is provided, the default implementation will be used.
         /// </remarks>
         /// <exception cref="ArgumentException">Thrown when the key is null or empty.</exception>
-        public SecurePreferences(IEncryptionProvider provider, IPreferences? preferences = null)
+        public SecureStorage(IEncryptionProvider provider, IPreferences? preferences = null)
         {
             if (preferences is null)
                 Preferences = MicrosoftPreferences.Default;
