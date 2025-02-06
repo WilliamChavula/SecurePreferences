@@ -24,7 +24,7 @@ namespace SecurePreferences.Test
 
             _mock.Setup(x => x.Set(encryptionKey, It.IsAny<string>(), null));
 
-            var securePreferences = new SecurePreferences(Encryption.AES, _mock.Object);
+            var securePreferences = new SecureStorage(Encryption.AES, _mock.Object);
 
             // When
             securePreferences.Save(encryptionKey, storageKey, value);
@@ -44,7 +44,7 @@ namespace SecurePreferences.Test
             _mock.Setup(x => x.Get<string?>(storageKey, null, null)).Returns(value);
             _provider.Setup(x => x.Decrypt(It.IsAny<string>(), decryptionKey)).Returns(value);
 
-            var securePreferences = new SecurePreferences(_provider.Object, _mock.Object);
+            var securePreferences = new SecureStorage(_provider.Object, _mock.Object);
 
             // When
             var result = securePreferences.Get(decryptionKey, storageKey);
@@ -63,7 +63,7 @@ namespace SecurePreferences.Test
 
             _mock.Setup(x => x.Remove(storageKey, null));
 
-            var securePreferences = new SecurePreferences(_provider.Object, _mock.Object);
+            var securePreferences = new SecureStorage(_provider.Object, _mock.Object);
 
             // When
             securePreferences.Remove(storageKey);
@@ -79,7 +79,7 @@ namespace SecurePreferences.Test
 
             _mock.Setup(x => x.Clear(null));
 
-            var securePreferences = new SecurePreferences(_provider.Object, _mock.Object);
+            var securePreferences = new SecureStorage(_provider.Object, _mock.Object);
 
             // When
             securePreferences.Clear();
