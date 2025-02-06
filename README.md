@@ -44,15 +44,15 @@ var privateKey = rsaAlgorithm.ExportPrivateKey();
 ```
 ---
 
-## 2. Setting Up SecurePreferences
+## 2. Setting Up SecureStorage
 ```csharp
-using SecurePreferencesLibrary;
+using SecurePreferences;
 
-// Initialize SecurePreferences with AES encryption
-var securePrefs = new SecurePreferences(Encryption.AES);
+// Initialize SecureStorage with AES encryption
+var securePrefs = new SecureStorage(Encryption.AES);
 
 // Alternatively, use RSA encryption
-// var securePrefs = new SecurePreferences(Encryption.RSA);
+// var securePrefs = new SecureStorage(Encryption.RSA);
 ```
 
 ## 2. Saving Preferences
@@ -97,14 +97,14 @@ securePrefs.Clear();
 
 # Example: Full Workflow
 ```csharp
-using SecurePreferencesLibrary;
+using SecurePreferences;
 
 class Program
 {
     static void Main()
     {
-        // Initialize SecurePreferences with AES encryption
-        var securePrefs = new SecurePreferences(EncryptionAlgorithm.AES);
+        // Initialize SecureStorage with AES encryption
+        var securePrefs = new SecureStorage(EncryptionAlgorithm.AES);
 
         // Save preferences
         securePrefs.Save("your-encryption-key", "Email", "user@example.com");
@@ -147,10 +147,10 @@ public class CustomEncryption : IEncryptionProvider
 
 ```
 
-Pass your custom provider to `SecurePreferences`:
+Pass your custom provider to `SecureStorage`:
 
 ```csharp
-var securePrefs = new SecurePreferences(new CustomEncryption());
+var securePrefs = new SecureStorage(new CustomEncryption());
 ```
 
 # Contributing
