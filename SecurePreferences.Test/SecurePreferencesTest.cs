@@ -18,7 +18,7 @@ namespace SecurePreferences.Test
         public void ShouldSaveToPreferencesWhenGivenKeyAndValue()
         {
             // Given
-            var encryptionKey = "aessupersecretkey";
+            var encryptionKey = AESKeyGenerator.ExportAesKey();
             var storageKey = "test";
             var value = "value";
 
