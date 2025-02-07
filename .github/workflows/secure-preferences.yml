@@ -10,21 +10,21 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: ./components/setup-dotnet.yml
+      - uses: ./.github/workflows/components/setup-dotnet.yml
       - name: Build Secure Preferences Library
         run: dotnet build SecurePreferences/SecurePreferences.csproj
   test:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - uses: ./components/setup-dotnet.yml
+      - uses: ./.github/workflows/components/setup-dotnet.yml
       - name: Run tests
         run: dotnet test SecurePreferences.Tests/SecurePreferences.Tests.csproj
   deploy:
     runs-on: ubuntu-latest
     needs: test
     steps:
-      - uses: ./components/setup-dotnet.yml
+      - uses: ./.github/workflows/components/setup-dotnet.yml
       - name: Deploy Secure Preferences Library
         run: dotnet pack --configuration Release SecurePreferences/SecurePreferences.csproj
       - name: Publish Secure Preferences Library
