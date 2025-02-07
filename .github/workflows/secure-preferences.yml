@@ -25,7 +25,7 @@ jobs:
       - name: Set up Dotnet
         uses: actions/setup-dotnet@v4
       - name: Run tests
-        run: dotnet test SecurePreferences.Tests/SecurePreferences.Tests.csproj
+        run: dotnet test SecurePreferences.Test/SecurePreferences.Test.csproj
   deploy:
     runs-on: ubuntu-latest
     needs: test
