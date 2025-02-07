@@ -1,0 +1,31 @@
+name: Secure Preferences Library
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./components/setup-dotnet.yml
+      - name: Build Secure Preferences Library
+        run: dotnet build SecurePreferences/SecurePreferences.csproj
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: ./components/setup-dotnet.yml
+      - name: Run tests
+        run: dotnet test SecurePreferences.Tests/SecurePreferences.Tests.csproj
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: ./components/setup-dotnet.yml
+      - name: Deploy Secure Preferences Library
+        run: dotnet pack --configuration Release SecurePreferences/SecurePreferences.csproj
+      - name: Publish Secure Preferences Library
+        run: dotnet nuget push SecurePreferences/bin/Release/SecurePreferences.1.0.0.3.nupkg -k ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
