@@ -1,4 +1,0 @@
-- name: Checkout and Setup Dotnet
-  uses: actions/checkout@v2
-- name: Set up Dotnet
-  uses: actions/setup-dotnet@v4
