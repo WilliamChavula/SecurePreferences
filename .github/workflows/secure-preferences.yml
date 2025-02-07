@@ -37,4 +37,4 @@ jobs:
       - name: Deploy Secure Preferences Library
         run: dotnet pack --configuration Release SecurePreferences/SecurePreferences.csproj
       - name: Publish Secure Preferences Library
-        run: dotnet nuget push SecurePreferences/bin/Release/SecurePreferences.1.0.0.3.nupkg -k ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+        run: dotnet nuget push SecurePreferences/bin/Release/SecurePreferences.1.0.3.1.nupkg -k ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
