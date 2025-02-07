@@ -20,14 +20,20 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - uses: ./.github/actions/setup-dotnet
+      - name: Checkout and Setup Dotnet
+        uses: actions/checkout@v2
+      - name: Set up Dotnet
+        uses: actions/setup-dotnet@v4
       - name: Run tests
         run: dotnet test SecurePreferences.Tests/SecurePreferences.Tests.csproj
   deploy:
     runs-on: ubuntu-latest
     needs: test
     steps:
-      - uses: ./.github/actions/setup-dotnet
+      - name: Checkout and Setup Dotnet
+        uses: actions/checkout@v2
+      - name: Set up Dotnet
+        uses: actions/setup-dotnet@v4
       - name: Deploy Secure Preferences Library
         run: dotnet pack --configuration Release SecurePreferences/SecurePreferences.csproj
       - name: Publish Secure Preferences Library
